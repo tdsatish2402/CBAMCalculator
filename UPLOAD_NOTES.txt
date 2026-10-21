@@ -1,0 +1,13 @@
+CBAM Exposure Calculator (beta): UK CBAM and EU CBAM
+
+Upload every file in this folder to the GitHub repository, replacing files with the same name.
+The main file stays app.py, so the Streamlit settings do not change.
+
+New files: common.py, uk_page.py, eu_page.py, trade_view.py, cbam_eu.py,
+           eu_default_values.csv.gz, eu_benchmarks.csv, eu_goods.csv, eu_country_map.csv,
+           baci_eu_all_goods.csv
+Replaced files: app.py, cbam_trade.py, build_baci_tables.py, baci_cbam_trade.csv.gz, baci_hs6_names.csv
+Unchanged: cbam_data.py, tlo_brand.py, assets/, cbam_default_values_baseline.csv, other baci_*.csv, requirements.txt
+
+Addresses: the existing link opens the UK page; the EU page is at <app address>/eu.
+Strings shown on screen sit in uk_page.py (UK), eu_page.py (EU) and trade_view.py (trade section, both).
