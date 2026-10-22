@@ -1,0 +1,21 @@
+# Trade Law Observatory colours for the CBAM Exposure Calculator.
+#
+# Streamlit picks the light or dark set below to match the visitor's phone or computer setting (or the
+# choice made in the app's Settings menu). Because Streamlit applies these colours itself, tabs, links,
+# radio buttons, list-box tags and focus outlines always match the background actually on screen.
+
+[theme.light]
+primaryColor = "#3F106E"              # brand purple: active tab, selections, focus
+textColor = "#1E2758"                 # brand navy
+linkColor = "#3F106E"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F1F9"  # light lilac behind input boxes
+borderColor = "#DCD6E8"
+
+[theme.dark]
+primaryColor = "#CDB1F7"              # light lilac: readable on the dark background
+textColor = "#F2EFF8"
+linkColor = "#CDB1F7"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#1C1B26"
+borderColor = "#3A3850"
