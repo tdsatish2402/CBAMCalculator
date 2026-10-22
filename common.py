@@ -24,18 +24,21 @@ MARK = brand.resolve("mark")            # globe mark, square
 TLO_URL = "https://www.tradelawobservatory.com/"
 
 # The page follows the visitor's light or dark setting (phones commonly use dark), so the
-# brand colours are chosen to match rather than fixed. Streamlit reports the active theme.
-try:
-    THEME_TYPE = st.context.theme.type          # "light", "dark" or None
-except Exception:                                # noqa: BLE001 - older Streamlit
-    THEME_TYPE = None
+# brand colours are chosen to match rather than fixed. Streamlit reports each visitor's active theme, so it
+# is read on every run (this module is loaded once for all visitors and must not store it).
+def theme_type():
+    try:
+        return st.context.theme.type            # "light", "dark" or None
+    except Exception:                            # noqa: BLE001 - older Streamlit
+        return None
 
 LIGHT = {"ACCENT": "#3F106E", "HEAD": "#3F106E", "STRONG": "#1E2758", "MUTED": "#5B5770", "CAPTION": "#3A3849",
          "RULE": "#E6E2EF", "TAGBG": "#EDE6F7", "TAGFG": "#3F106E"}
 DARK = {"ACCENT": "#CDB1F7", "HEAD": "#CDB1F7", "STRONG": "#F2EFF8", "MUTED": "#AEAAC0", "CAPTION": "#D9D5E6",
         "RULE": "#2E3140", "TAGBG": "#3B2C57", "TAGFG": "#EADDFB"}
 
-LOGO = brand.resolve("wordmark_dark" if THEME_TYPE == "dark" else "wordmark")
+def logo_path():
+    return brand.resolve("wordmark_dark" if theme_type() == "dark" else "wordmark")
 
 STRUCTURAL_CSS = """
 [data-testid="stImage"] img { max-width: min(260px, 72vw) !important; height: auto !important; }
@@ -123,9 +126,10 @@ def _fill(css: str, palette: dict[str, str]) -> str:
 
 
 def build_css() -> str:
-    if THEME_TYPE == "dark":
+    theme = theme_type()
+    if theme == "dark":
         body = _fill(STRUCTURAL_CSS + THEMED_CSS, DARK)
-    elif THEME_TYPE == "light":
+    elif theme == "light":
         body = _fill(STRUCTURAL_CSS + THEMED_CSS, LIGHT)
     else:
         body = (
@@ -140,6 +144,7 @@ def build_css() -> str:
 
 def masthead() -> None:
     """Trade Law Observatory logo, linked to the website."""
+    LOGO = logo_path()
     if LOGO is not None:
         try:
             st.logo(str(LOGO), size="large", link=TLO_URL, icon_image=str(MARK) if MARK else None)
